@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.eventos.PrimaryController"
+            prefWidth="900" prefHeight="700">
+
+    <top>
+        <VBox styleClass="header">
+            <Label text="🎛️ Demo de Interfaces Naturales - Diego" styleClass="titulo-header"/>
+            <Label text="Programa de demostración de eventos JavaFX" styleClass="subtitulo-header"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane-custom">
+
+            <!-- TAB 1: Ratón -->
+            <Tab text="🖱️ Ratón">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" styleClass="tab-content">
+                        <Label text="Eventos de Ratón (MouseEvent)" styleClass="seccion-titulo"/>
+                        <HBox spacing="15" alignment="CENTER">
+                            <VBox spacing="10" styleClass="evento-card" HBox.hgrow="ALWAYS">
+                                <Label text="Zona interactiva:" styleClass="etiqueta"/>
+                                <Pane fx:id="zonaRaton" prefWidth="300" prefHeight="200" styleClass="zona-interactiva">
+                                    <Label layoutX="80" layoutY="90" text="Mueve el ratón aquí" styleClass="hint-label" fx:id="labelZonaRaton"/>
+                                </Pane>
+                            </VBox>
+                            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                <Label text="Registro de eventos:" styleClass="etiqueta"/>
+                                <TextArea fx:id="logRaton" prefHeight="180" editable="false" styleClass="log-area" wrapText="true"/>
+                                <Button text="Limpiar log" onAction="#limpiarLogRaton" styleClass="btn-secundario"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER">
+                            <Button fx:id="btnHover" text="Hover sobre mí" styleClass="btn-evento"/>
+                            <Button fx:id="btnDraggable" text="Arrástrame" styleClass="btn-evento btn-drag"/>
+                            <Button fx:id="btnContador" text="Clic (0)" styleClass="btn-evento btn-click"/>
+                            <Button fx:id="btnScrollDemo" text="Scroll aquí" styleClass="btn-evento"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- TAB 2: Teclado -->
+            <Tab text="⌨️ Teclado">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" styleClass="tab-content">
+                        <Label text="Eventos de Teclado (KeyEvent)" styleClass="seccion-titulo"/>
+                        <VBox spacing="10" styleClass="evento-card">
+                            <Label text="Escribe en el campo de texto:" styleClass="etiqueta"/>
+                            <TextField fx:id="campoTeclado" promptText="Escribe aquí..." styleClass="input-teclado"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Última tecla pulsada:" styleClass="etiqueta"/>
+                                <Label fx:id="lblUltimaTecla" text="---" styleClass="valor-tecla"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Tipo de evento:" styleClass="etiqueta"/>
+                                <Label fx:id="lblTipoTecla" text="---" styleClass="valor-tecla"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Código de tecla:" styleClass="etiqueta"/>
+                                <Label fx:id="lblCodigoTecla" text="---" styleClass="valor-tecla"/>
+                            </HBox>
+                        </VBox>
+                        <VBox spacing="8">
+                            <Label text="Log de eventos de teclado:" styleClass="etiqueta"/>
+                            <TextArea fx:id="logTeclado" prefHeight="200" editable="false" styleClass="log-area" wrapText="true"/>
+                            <Button text="Limpiar" onAction="#limpiarLogTeclado" styleClass="btn-secundario"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- TAB 3: Scroll y Drag -->
+            <Tab text="📜 Scroll/Drag">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" styleClass="tab-content">
+                        <Label text="Eventos de Scroll y Drag (ScrollEvent / DragEvent)" styleClass="seccion-titulo"/>
+                        <HBox spacing="15">
+                            <VBox spacing="10" styleClass="evento-card" HBox.hgrow="ALWAYS">
+                                <Label text="Zona de Scroll (ScrollEvent):" styleClass="etiqueta"/>
+                                <Pane fx:id="zonaScroll" prefHeight="200" styleClass="zona-interactiva">
+                                    <Rectangle fx:id="rectScroll" x="100" y="75" width="80" height="50"
+                                               fill="#4ECDC4" arcWidth="10" arcHeight="10"/>
+                                    <Label fx:id="lblScrollInfo" layoutX="10" layoutY="10"
+                                           text="Usa la rueda del ratón" styleClass="hint-label"/>
+                                </Pane>
+                                <Label text="Zona de Drag &amp; Drop:" styleClass="etiqueta"/>
+                                <HBox spacing="10">
+                                    <Pane fx:id="zonaOrigen" prefWidth="130" prefHeight="100" styleClass="zona-drag-origen">
+                                        <Label layoutX="15" layoutY="40" text="Arrastra desde aquí" styleClass="hint-label" wrapText="true"/>
+                                    </Pane>
+                                    <Label text="→" style="-fx-font-size:24;"/>
+                                    <Pane fx:id="zonaDestino" prefWidth="130" prefHeight="100" styleClass="zona-drag-destino">
+                                        <Label layoutX="15" layoutY="40" text="Suelta aquí" styleClass="hint-label" wrapText="true"/>
+                                    </Pane>
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                <Label text="Log Scroll/Drag:" styleClass="etiqueta"/>
+                                <TextArea fx:id="logScrollDrag" prefHeight="300" editable="false" styleClass="log-area" wrapText="true"/>
+                                <Button text="Limpiar" onAction="#limpiarLogScrollDrag" styleClass="btn-secundario"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- TAB 4: Gestos -->
+            <Tab text="👆 Gestos">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" styleClass="tab-content">
+                        <Label text="Gestos Táctiles - TouchEvent, SwipeEvent, ZoomEvent, RotateEvent" styleClass="seccion-titulo"/>
+                        <Label text="⚠️ Los gestos táctiles reales requieren pantalla táctil. Se muestran las implementaciones y simulación con ratón."
+                               styleClass="aviso-label" wrapText="true"/>
+                        <HBox spacing="15">
+                            <VBox spacing="10" styleClass="evento-card" HBox.hgrow="ALWAYS">
+                                <Label text="Objeto transformable (arrastra/scroll):" styleClass="etiqueta"/>
+                                <Pane fx:id="zonaGestos" prefHeight="220" styleClass="zona-gestos">
+                                    <Rectangle fx:id="rectGesto" x="110" y="85" width="80" height="50"
+                                               fill="#FF6B6B" arcWidth="12" arcHeight="12"/>
+                                    <Label fx:id="lblGestoInfo" layoutX="10" layoutY="10"
+                                           text="Arrastra, scroll o gestos táctiles" styleClass="hint-label" wrapText="true"/>
+                                </Pane>
+                                <Label text="Simulación de gestos:" styleClass="etiqueta"/>
+                                <HBox spacing="8">
+                                    <Button text="↔ Swipe Izq" styleClass="btn-gesto" onAction="#simularSwipeIzq"/>
+                                    <Button text="↔ Swipe Der" styleClass="btn-gesto" onAction="#simularSwipeDer"/>
+                                    <Button text="🔍+ Zoom In" styleClass="btn-gesto" onAction="#simularZoomIn"/>
+                                    <Button text="🔍- Zoom Out" styleClass="btn-gesto" onAction="#simularZoomOut"/>
+                                </HBox>
+                                <HBox spacing="8">
+                                    <Button text="↻ Rotar +" styleClass="btn-gesto" onAction="#simularRotarPos"/>
+                                    <Button text="↺ Rotar -" styleClass="btn-gesto" onAction="#simularRotarNeg"/>
+                                    <Button text="🔄 Reset" styleClass="btn-secundario" onAction="#resetGesto"/>
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                <Label text="Log Gestos:" styleClass="etiqueta"/>
+                                <TextArea fx:id="logGestos" prefHeight="280" editable="false" styleClass="log-area" wrapText="true"/>
+                                <Button text="Limpiar" onAction="#limpiarLogGestos" styleClass="btn-secundario"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- TAB 5: Informe PDF -->
+            <Tab text="📄 Informe PDF">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" styleClass="tab-content">
+                        <Label text="Generación de Informe PDF con Gráficas - Diego" styleClass="seccion-titulo"/>
+                        <VBox spacing="10" styleClass="evento-card">
+                            <Label text="El informe PDF incluirá estadísticas de todos los eventos capturados durante la sesión."
+                                   styleClass="etiqueta" wrapText="true"/>
+                            <HBox spacing="15" alignment="CENTER">
+                                <VBox spacing="5" styleClass="stat-card">
+                                    <Label text="Eventos de ratón:" styleClass="etiqueta"/>
+                                    <Label fx:id="statRaton" text="0" styleClass="stat-numero"/>
+                                </VBox>
+                                <VBox spacing="5" styleClass="stat-card">
+                                    <Label text="Eventos de teclado:" styleClass="etiqueta"/>
+                                    <Label fx:id="statTeclado" text="0" styleClass="stat-numero"/>
+                                </VBox>
+                                <VBox spacing="5" styleClass="stat-card">
+                                    <Label text="Scroll/Drag:" styleClass="etiqueta"/>
+                                    <Label fx:id="statScroll" text="0" styleClass="stat-numero"/>
+                                </VBox>
+                                <VBox spacing="5" styleClass="stat-card">
+                                    <Label text="Gestos:" styleClass="etiqueta"/>
+                                    <Label fx:id="statGestos" text="0" styleClass="stat-numero"/>
+                                </VBox>
+                            </HBox>
+                            <Button text="📊 Generar Informe PDF" fx:id="btnGenerarPDF"
+                                    styleClass="btn-pdf" onAction="#generarPDF" maxWidth="Infinity"/>
+                            <Label fx:id="lblEstadoPDF" text="" styleClass="resultado-label" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar" spacing="10" alignment="CENTER_LEFT">
+            <Label text="Estado:" styleClass="status-label"/>
+            <Label fx:id="lblStatus" text="Listo. Interactúa con los controles para ver los eventos." styleClass="status-valor"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblContadorTotal" text="Total eventos: 0" styleClass="status-contador"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
